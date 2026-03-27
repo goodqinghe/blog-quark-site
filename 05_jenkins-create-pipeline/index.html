@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta name="generator" content="Quarkdown">
+    <meta charset="UTF-8">
+    <meta name="description" content="Jenkins 创建第一个流水线">
+    <meta name="author" content="清河, 清河">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="quarkdown:root-path" content="..">
+    <title>05_jenkins-create-pipeline</title>
+    <script src="../script/quarkdown.js"></script>
+    <script>const capabilities = window.quarkdownCapabilities</script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="../theme/theme.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.9.0/highlightjs-line-numbers.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+    <link href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" rel="stylesheet">
+    <script>capabilities.code = true;</script>
+    <style>
+
+body {
+}
+
+body.quarkdown-plain.quarkdown-plain,
+body.quarkdown-docs.quarkdown-docs {
+}
+
+body.quarkdown-slides.quarkdown-slides .reveal {
+}
+
+@page {
+    size: auto auto;
+    margin: 0;}
+
+p {
+}</style>
+    <script>prepare(new PlainDocument());</script>
+<template id="sidebar-template"><nav class="sidebar" role="doc-toc"><ol><li data-target-id="jenkins-创建第一个流水线" data-depth="1"><a href="#jenkins-创建第一个流水线">Jenkins 创建第一个流水线</a><ol><li data-target-id="环境" data-depth="2"><a href="#环境">环境</a></li><li data-target-id="步骤" data-depth="2"><a href="#步骤">步骤</a><ol><li data-target-id="新建一个流水线" data-depth="3"><a href="#新建一个流水线">新建一个流水线</a></li><li data-target-id="注意事项" data-depth="3"><a href="#注意事项">注意事项</a></li></ol></li></ol></li></ol></nav>
+</template>  </head>
+  <body class="quarkdown quarkdown-plain">
+    <aside class="margin-area" id="margin-area-left"></aside>
+    <main><div class="container fullwidth" style="justify-items: end; text-align: end;"><p><a href="../blog">返回主页</a></p></div><div class="page-break" data-hidden=""></div><h1 id="table-of-contents">目录</h1><nav role="table-of-contents" data-role="table-of-contents"><ol><li data-target-id="jenkins-创建第一个流水线" data-depth="1"><a href="#jenkins-创建第一个流水线">Jenkins 创建第一个流水线</a><ol><li data-target-id="环境" data-depth="2"><a href="#环境">环境</a></li><li data-target-id="步骤" data-depth="2"><a href="#步骤">步骤</a><ol><li data-target-id="新建一个流水线" data-depth="3"><a href="#新建一个流水线">新建一个流水线</a></li><li data-target-id="注意事项" data-depth="3"><a href="#注意事项">注意事项</a></li></ol></li></ol></li></ol></nav><div class="page-break" data-hidden=""></div><h1 id="jenkins-创建第一个流水线">Jenkins 创建第一个流水线</h1><h2 id="环境">环境</h2><ul><li>代码在 GitHub 私有仓库上</li></ul><h2 id="步骤">步骤</h2><h3 id="新建一个流水线">新建一个流水线</h3><ol><li>在 Jenkins 首页点击 “新建任务”。</li><li>输入任务名称，选择 “流水线”，点击 “确定”。</li><li>在流水线配置页面，找到 “流水线” 部分。</li><li>在 “定义” 下拉框中选择 “Pipeline script”。</li><li>脚本输入框下面有个 “流水线语法”，可以生成脚本，点击 “流水线语法” 链接。</li><li>在 “流水线语法” 页面中，选择 “示例步骤” 下拉框，选择一个步骤 “git：Git”。</li><li>仓库 URL 输入框中输入 GitHub 仓库地址，例如 <span class="codespan-content"><code>git@github.com:&lt;github-username&gt;/&lt;repository&gt;.git</code></span></li><li>分支输入框中输入代码库中分支名称。</li><li>因为是私有仓库，所以需要添加凭据，点击 “添加” 按钮，选择 “全局凭证（无限制）”，选择 “SSH Username with private key”，范围选择 全局，输入凭据名称（ID栏），描述的话，如果有同名的可以写描述，用户名输入 git，选择 “Enter directly（直接输入）”，将生成的 SSH 私钥内容粘贴到文本框中，点击 “添加”。<ol><li>在当前这种“使用语法生成器”的场景下 “Secret file” 或者 “Secret text”，这两种类型的凭据在选择凭据的时候不会显示。</li><li>密钥生成可以使用 <span class="codespan-content"><code>ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -C &quot;your_email@example.com&quot;</code></span><ol><li>生成的公钥内容可以使用 <span class="codespan-content"><code>cat ~/.ssh/id_rsa.pub</code></span> 查看并复制到 GitHub 的对应代码仓库的设置中的 Deploy keys（部署密钥）中。(注意：Deploy key 通常用于单个仓库的访问；如果需要让 Jenkins 访问多个私有仓库，则要考虑统一的机器用户或其他认证方式。)</li><li>生成的私钥内容可以使用 <span class="codespan-content"><code>cat ~/.ssh/id_rsa</code></span> 查看并复制到凭据中。</li><li>SSH 密钥可以在任意 Linux/macOS 终端生成；关键是要把对应的公钥添加到 GitHub 仓库的 Deploy keys 中，并把匹配的私钥添加到 Jenkins 凭据中。而且要注意保密之类的事项。</li></ol></li></ol></li><li>选择刚才添加的凭据，点击 “生成流水线脚本”，得到类似如下的脚本：</li></ol><pre><code class="language-groovy">git branch: &#39;main&#39;, credentialsId: &#39;&lt;凭据ID&gt;&#39;, url: &#39;git@github.com:&lt;github-username&gt;/&lt;repository&gt;.git&#39;</code></pre><figure><img src="media/jenkins-create-pipeline-pipeline-syntax@-1098406402.png" alt="流水线语法" /></figure><ol start="11"><li>将生成的脚本复制到流水线脚本输入框中，再写一些脚本，我的目的是让 Jenkins 执行 列出二层目录 命令，所以脚本如下：</li></ol><pre><code class="language-groovy">pipeline {
+    agent any
+    stages {
+        stage(&#39;Checkout Code&#39;) {
+            steps {
+                git branch: &#39;main&#39;,
+                    credentialsId: &quot;&lt;凭据ID&gt;&quot;,
+                    url: &#39;git@github.com:&lt;github-username&gt;/&lt;repository&gt;.git&#39;
+            }
+        }
+
+        stage(&#39;Show Directory Tree&#39;) {
+            steps {
+                sh &#39;&#39;&#39;
+                    echo &quot;当前工作目录: $(pwd)&quot;
+                    echo &quot;列出前两层目录结构：&quot;
+                    if command -v tree &gt;/dev/null 2&gt;&amp;1; then
+                        tree -L 2
+                    else
+                        echo &quot;tree 命令不存在，尝试安装或使用 find 替代&quot;
+                        find . -maxdepth 2 | sort
+                    fi
+                &#39;&#39;&#39;
+            }
+        }
+    }
+
+    post {
+        success {
+            echo &#39;流水线执行成功&#39;
+        }
+        failure {
+            echo &#39;流水线执行失败&#39;
+        }
+        always {
+            cleanWs()
+        }
+    }
+}</code></pre><blockquote><p>cleanWs() 需要安装 Workspace Cleanup 插件；如果未安装，可先删除这一段。</p></blockquote><ol start="12"><li>点击 “保存” 后运行就可以了</li></ol><h3 id="注意事项">注意事项</h3><ol><li>关于 Jenkins 主机密钥验证（Host key verification）的问题</li></ol><p>创建成功后运行的时候，可能会遇到如下错误：</p><pre><code class="language-text">Host key verification failed</code></pre><p>这个错误说明 Jenkins 当前环境还没有接受 GitHub 的主机密钥。</p><p>解决方法：</p><ul><li>这个问题有多种解决办法，下面说一种图形化的方式：<ol><li>在 Jenkins 的系统管理中找到 “全局安装配置”，点开后找到 “Git Host Key Verification Strategy”。</li><li>可以选择 “Accept first connection（接受首次连接）”，这样 Jenkins 在第一次连接 GitHub 时会自动接受主机密钥。</li></ol></li></ul></main>
+    <aside class="margin-area" id="margin-area-right"></aside>
+  </body>
+</html>

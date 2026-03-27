@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta name="generator" content="Quarkdown">
+    <meta charset="UTF-8">
+    <meta name="description" content="Jenkins 在 Kubernetes 上的搭建">
+    <meta name="author" content="清河, 清河">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="quarkdown:root-path" content="..">
+    <title>04_jenkins-kubernetes-setup</title>
+    <script src="../script/quarkdown.js"></script>
+    <script>const capabilities = window.quarkdownCapabilities</script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="../theme/theme.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.9.0/highlightjs-line-numbers.min.js"></script>
+    <script src="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js"></script>
+    <link href="https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css" rel="stylesheet">
+    <script>capabilities.code = true;</script>
+    <style>
+
+body {
+}
+
+body.quarkdown-plain.quarkdown-plain,
+body.quarkdown-docs.quarkdown-docs {
+}
+
+body.quarkdown-slides.quarkdown-slides .reveal {
+}
+
+@page {
+    size: auto auto;
+    margin: 0;}
+
+p {
+}</style>
+    <script>prepare(new PlainDocument());</script>
+<template id="sidebar-template"><nav class="sidebar" role="doc-toc"><ol><li data-target-id="jenkins-在-kubernetes-上的搭建" data-depth="1"><a href="#jenkins-在-kubernetes-上的搭建">Jenkins 在 Kubernetes 上的搭建</a><ol><li data-target-id="安装" data-depth="2"><a href="#安装">安装</a><ol><li data-target-id="步骤概括" data-depth="3"><a href="#步骤概括">步骤概括</a></li></ol></li><li data-target-id="卸载" data-depth="2"><a href="#卸载">卸载</a><ol><li data-target-id="完整卸载" data-depth="3"><a href="#完整卸载">完整卸载</a></li><li data-target-id="简单重装" data-depth="3"><a href="#简单重装">简单重装</a></li><li data-target-id="注意事项" data-depth="3"><a href="#注意事项">注意事项</a></li></ol></li><li data-target-id="参考资料" data-depth="2"><a href="#参考资料">参考资料</a></li></ol></li></ol></nav>
+</template>  </head>
+  <body class="quarkdown quarkdown-plain">
+    <aside class="margin-area" id="margin-area-left"></aside>
+    <main><div class="container fullwidth" style="justify-items: end; text-align: end;"><p><a href="../blog">返回主页</a></p></div><div class="page-break" data-hidden=""></div><h1 id="table-of-contents">目录</h1><nav role="table-of-contents" data-role="table-of-contents"><ol><li data-target-id="jenkins-在-kubernetes-上的搭建" data-depth="1"><a href="#jenkins-在-kubernetes-上的搭建">Jenkins 在 Kubernetes 上的搭建</a><ol><li data-target-id="安装" data-depth="2"><a href="#安装">安装</a><ol><li data-target-id="步骤概括" data-depth="3"><a href="#步骤概括">步骤概括</a></li></ol></li><li data-target-id="卸载" data-depth="2"><a href="#卸载">卸载</a><ol><li data-target-id="完整卸载" data-depth="3"><a href="#完整卸载">完整卸载</a></li><li data-target-id="简单重装" data-depth="3"><a href="#简单重装">简单重装</a></li><li data-target-id="注意事项" data-depth="3"><a href="#注意事项">注意事项</a></li></ol></li><li data-target-id="参考资料" data-depth="2"><a href="#参考资料">参考资料</a></li></ol></li></ol></nav><div class="page-break" data-hidden=""></div><h1 id="jenkins-在-kubernetes-上的搭建">Jenkins 在 Kubernetes 上的搭建</h1><blockquote><p>本文基于 Jenkins 官方 Kubernetes 安装文档进行实践，不重复展开全部官方配置文件，而是重点记录部署思路、关键配置改动以及实际验证过程。涉及的 YAML 仅保留与当前环境相关的核心片段。
+YAML 配置文件的完整版本请参考 Jenkins 官方文档：<a href="https://www.jenkins.io/doc/book/installing/kubernetes/">https://www.jenkins.io/doc/book/installing/kubernetes/</a></p></blockquote><h2 id="安装">安装</h2><h3 id="步骤概括">步骤概括</h3><blockquote><p>步骤官方文档写的很详细了，主要写我更改了什么。</p></blockquote><p>因为我这是学习场景下的一次简单尝试，执行了创建命名空间、创建服务账户、创建持久卷、创建无状态负载，创建服务访问 service，就可以通过端口转发访问 Jenkins 了。更改概括如下：</p><ol><li>单节点 Kubernetes 集群部署 Jenkins。</li><li>存储卷使用了 &lsquo;local&rsquo; 存储类，将在节点 <span class="codespan-content"><code>/mnt/jenkins-data</code></span> 创建 <span class="codespan-content"><code>PersistentVolume</code></span> 卷。更改了 <span class="codespan-content"><code>spec.nodeAffinity.required.nodeSelectorTerms[].matchExpressions[].values</code></span> 的值为工作节点的主机名。<blockquote><p>单节点部署方式工作节点的主机名使用 <span class="codespan-content"><code>kubectl get nodes</code></span> 命令获取。</p></blockquote></li><li>PV 的 YAML 文件还更改了 <span class="codespan-content"><code>spec.local.path</code></span> 为 <span class="codespan-content"><code>/mnt/jenkins-data</code></span>。<blockquote><p>这样可以减少干扰 <span class="codespan-content"><code>/mnt</code></span> 目录下的其他数据。</p></blockquote></li><li>访问方式使用的是 SSH 端口转发。<blockquote><p>转发使用的是 <span class="codespan-content"><code>ssh -L 32000:127.0.0.1:32000 &lt;用户名&gt;@&lt;服务器IP&gt; -N</code></span> 命令，参数说明如下：</p><p>该命令表示在本地监听 32000 端口，并将流量转发到服务器上的 32000 端口。</p><p><span class="codespan-content"><code>-N</code></span> 表示只做转发，不登录执行远程命令。
+建立转发后，在本地访问 <span class="codespan-content"><code>http://127.0.0.1:32000</code></span></p></blockquote></li></ol><h2 id="卸载">卸载</h2><p>卸载主要是删除 Jenkins 相关的 Kubernetes 资源，删除或者重新安装简单流程如下：</p><h3 id="完整卸载">完整卸载</h3><p>完整删除 Jenkins，可以按与安装相反的大致顺序进行清理：</p><ol><li>删除 Service。</li><li>删除 Jenkins Deployment。</li><li>删除 PVC / PV。</li><li>删除服务账户及相关权限配置。</li><li>删除命名空间。</li><li>删除节点上的本地数据目录 <span class="codespan-content"><code>/mnt/jenkins-data</code></span>。</li></ol><h3 id="简单重装">简单重装</h3><p>如果只是想以“清除数据”的方式重新安装，那么不一定需要完整删除全部 Kubernetes 资源。</p><p>在当前这种单节点 + local PV 的学习环境中，通常只需要：</p><ol><li>删除 Jenkins Deployment。</li><li>删除或清空本地数据目录 <span class="codespan-content"><code>/mnt/jenkins-data</code></span>。</li></ol><p>这样做的本质是：</p><ul><li>删除 Deployment：让 Jenkins Pod 重新创建。</li><li>删除本地数据目录：清空 Jenkins 持久化数据。</li></ul><h3 id="注意事项">注意事项</h3><ol><li>local PV 对应的目录必须存在</li></ol><p>如果 PV 中配置的是：</p><pre><code class="language-yaml">spec:
+  local:
+    path: /mnt/jenkins-data</code></pre><p>那么节点上的 <span class="codespan-content"><code>/mnt/jenkins-data</code></span> 目录必须提前创建。
+否则 Pod 会在挂载阶段失败，并出现类似报错：</p><pre><code class="language-text">MountVolume.NewMounter initialization failed for volume &quot;jenkins-pv-volume&quot; : path &quot;/mnt/jenkins-data&quot; does not exist</code></pre><ol start="2"><li>关于误删除 <span class="codespan-content"><code>/mnt</code></span> 目录后的重建</li></ol><ul><li>可以手动创建，但是要注意权限问题，确保 Jenkins 进程有权限访问这个目录。</li><li>如果使用的是 <span class="codespan-content"><code>/mnt/jenkins-data</code></span>，需要确保这个目录存在并且权限正确。</li><li>如果是 root 用户创建目录，通常需要先用 <span class="codespan-content"><code>chmod</code></span> 调整权限，再用 <span class="codespan-content"><code>chown</code></span> 将目录所有权转移给 Jenkins 进程运行用户。</li><li>相关命令示例：</li></ul><pre><code class="language-bash">sudo mkdir -p /mnt/jenkins-data
+sudo chown -R 1000:1000 /mnt/jenkins-data
+sudo chmod 755 /mnt/jenkins-data</code></pre><h2 id="参考资料">参考资料</h2><ul><li><a href="https://www.jenkins.io/doc/book/installing/kubernetes/">Jenkins 在 Kubernetes 上的安装</a></li><li><a href="https://devopscube.com/setup-jenkins-on-kubernetes-cluster/">How To Setup Jenkins On Kubernetes Cluster &ndash; Beginners Guide</a></li></ul></main>
+    <aside class="margin-area" id="margin-area-right"></aside>
+  </body>
+</html>
