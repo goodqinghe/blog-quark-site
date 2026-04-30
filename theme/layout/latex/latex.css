@@ -1,6 +1,6 @@
 /* Inspired by latex-css https://github.com/vincentdoerig/latex-css */
-@import url("https://cdn.jsdelivr.net/gh/aaaakshat/cm-web-fonts@latest/fonts.css");
-@import url("https://cdn.jsdelivr.net/gh/sugina-dev/latin-modern-web@1.0.1/style/latinmodern-mono.css");
+@import url("computermodern/index.css");
+@import url("latinmodern-mono/index.css");
 :root {
   --qd-main-font: "Computer Modern Serif", sans-serif;
   --qd-main-font-size: 1rem;

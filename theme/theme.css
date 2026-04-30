@@ -1,4 +1,4 @@
 @import url('global.css');
-@import url('latex.css');
-@import url('paperwhite.css');
-@import url('zh.css');
+@import url('layout/latex/latex.css');
+@import url('color/paperwhite/paperwhite.css');
+@import url('locale/zh/zh.css');

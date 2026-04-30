@@ -8,34 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="quarkdown:root-path" content="..">
     <title>00_quarkdown_blog_setup</title>
-    <script src="../script/quarkdown.js"></script>
+    <script src="../script/quarkdown.min.js"></script>
     <script>const capabilities = window.quarkdownCapabilities</script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <script>window.texMacros = {}</script>
+    <link href="../lib/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet">
     <link href="../theme/theme.css" rel="stylesheet">
     <style>
 
-body {
-}
-
-body.quarkdown-plain.quarkdown-plain,
-body.quarkdown-docs.quarkdown-docs {
-}
-
-body.quarkdown-slides.quarkdown-slides .reveal {
-}
-
-@page {
-    size: auto auto;
-    margin: 0;}
-
-p {
-}</style>
+</style>
     <script>prepare(new PlainDocument());</script>
 <template id="sidebar-template"><nav class="sidebar" role="doc-toc"><ol><li data-target-id="quarkdown-博客搭建记录" data-depth="1"><a href="#quarkdown-博客搭建记录">Quarkdown 博客搭建记录</a><ol><li data-target-id="前言" data-depth="2"><a href="#前言">前言</a></li><li data-target-id="参考链接" data-depth="2"><a href="#参考链接">参考链接</a></li></ol></li></ol></nav>
 </template>  </head>
   <body class="quarkdown quarkdown-plain">
     <aside class="margin-area" id="margin-area-left"></aside>
-    <main><div class="page-break" data-hidden=""></div><h1 id="quarkdown-博客搭建记录">Quarkdown 博客搭建记录</h1><h2 id="前言">前言</h2><p>具体方案是分为几个部分，一是创建两个 Git 仓库，一个是私有源码仓库，一个是公开发布仓库，私有源码仓库可以推送到 GitHub 上或者 Gitee 上，公开仓库推送到 GitHub 上。</p><p>第二步是在 Cloudflare 上创建一个 Pages 项目，连接到公开仓库。</p><p>第三步如果要换一个简单的域名，可以在 Cloudflare 或者其他域名购买网站上购买一个域名。</p><h2 id="参考链接">参考链接</h2><ul><li><a href="https://blog.qgm1702.top/QuarkdownCloudflareForBlog">quarkdown + Cloudflare + github repo 的博客搭建</a></li></ul><hr /><p>最后更新时间：2026-03-19
+    <main><h1 class="page-break" id="quarkdown-博客搭建记录">Quarkdown 博客搭建记录</h1><h2 id="前言">前言</h2><p>具体方案是分为几个部分，一是创建两个 Git 仓库，一个是私有源码仓库，一个是公开发布仓库，私有源码仓库可以推送到 GitHub 上或者 Gitee 上，公开仓库推送到 GitHub 上。</p><p>第二步是在 Cloudflare 上创建一个 Pages 项目，连接到公开仓库。</p><p>第三步如果要换一个简单的域名，可以在 Cloudflare 或者其他域名购买网站上购买一个域名。</p><h2 id="参考链接">参考链接</h2><ul><li><a href="https://blog.qgm1702.top/QuarkdownCloudflareForBlog">quarkdown + Cloudflare + github repo 的博客搭建</a></li></ul><hr /><p>最后更新时间：2026-03-19
 <a href="../blog">返回主页</a></p></main>
     <aside class="margin-area" id="margin-area-right"></aside>
   </body>
