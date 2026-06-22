@@ -144,14 +144,18 @@ code.hljs {
 .quarkdown blockquote {
   border-color: rgba(0, 0, 0, 0.2);
 }
+.quarkdown pre {
+  border: 1px solid var(--qd-main-color-muted);
+}
 .quarkdown pre code {
   background-color: transparent;
-  border: 1px solid var(--qd-main-color-muted);
+}
+.quarkdown.quarkdown-paged pre {
+  border: none;
 }
 .quarkdown.quarkdown-paged pre code {
   padding-left: 0;
   padding-right: 0;
-  border: none;
 }
 .quarkdown.quarkdown-slides blockquote {
   box-shadow: none;
