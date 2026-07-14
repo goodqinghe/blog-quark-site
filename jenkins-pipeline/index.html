@@ -64,7 +64,7 @@
         }
     }
 }
-</code></pre><blockquote><p>cleanWs() 需要安装 Workspace Cleanup 插件；如果未安装，可先删除这一段。</p></blockquote><ol start="12"><li>点击 “保存” 后运行就可以了</li></ol><h3 id="注意事项">注意事项</h3><ol><li>关于 Jenkins 主机密钥验证（Host key verification）的问题</li></ol><p>创建成功后运行的时候，可能会遇到如下错误：</p><pre><code class="language-text">Host key verification failed</code></pre><p>这个错误说明 Jenkins 当前环境还没有接受 GitHub 的主机密钥。</p><p>解决方法：</p><ul><li>这个问题有多种解决办法，下面说一种图形化的方式：<ol><li>在 Jenkins 的系统管理中找到 “全局安装配置”，点开后找到 “Git Host Key Verification Strategy”。</li><li>可以选择 “Accept first connection（接受首次连接）”，这样 Jenkins 在第一次连接 GitHub 时会自动接受主机密钥。</li></ol></li></ul></main>
+</code></pre><blockquote><p>cleanWs() 需要安装 Workspace Cleanup 插件；如果未安装，可先删除这一段。</p></blockquote><ol start="12"><li>点击 “保存” 后运行就可以了</li></ol><h3 id="注意事项">注意事项</h3><ol><li>关于 Jenkins 主机密钥验证（Host key verification）的问题</li></ol><p>创建成功后运行的时候，可能会遇到如下错误：</p><pre><code class="language-text">Host key verification failed</code></pre><p>这个错误说明 Jenkins 当前环境还没有接受 GitHub 的主机密钥。</p><p>解决方法：</p><ul><li>这个问题有多种解决办法，下面说一种图形化的方式：<ol><li>在 Jenkins 的系统管理中找到 “全局安装配置”，点开后找到 “Git Host Key Verification Strategy”。</li><li>可以选择 “Accept first connection（接受首次连接）”，这样 Jenkins 在第一次连接 GitHub 时会自动接受主机密钥。</li></ol></li></ul><hr /><p>最后更新时间：2026-07-14</p></main>
     <aside class="margin-area" id="margin-area-right"></aside>
   </body>
 </html>
