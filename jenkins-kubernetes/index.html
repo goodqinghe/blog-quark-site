@@ -30,7 +30,7 @@
   local:
     path: /mnt/jenkins-data</code></pre><p>那么节点上的 <span class="codespan-content"><code>/mnt/jenkins-data</code></span> 目录必须提前创建。否则 Pod 会在挂载阶段失败，并出现类似报错：</p><pre><code class="language-text">MountVolume.NewMounter initialization failed for volume &quot;jenkins-pv-volume&quot; : path &quot;/mnt/jenkins-data&quot; does not exist</code></pre><ol start="2"><li>关于误删除 <span class="codespan-content"><code>/mnt</code></span> 目录后的重建</li></ol><ul><li>可以手动创建，但是要注意权限问题，确保 Jenkins 进程有权限访问这个目录。</li><li>如果使用的是 <span class="codespan-content"><code>/mnt/jenkins-data</code></span>，需要确保这个目录存在并且权限正确。</li><li>如果是 root 用户创建目录，通常需要先用 <span class="codespan-content"><code>chmod</code></span> 调整权限，再用 <span class="codespan-content"><code>chown</code></span> 将目录所有权转移给 Jenkins 进程运行用户。</li><li>相关命令示例：</li></ul><pre><code class="language-bash">sudo mkdir -p /mnt/jenkins-data
 sudo chown -R 1000:1000 /mnt/jenkins-data
-sudo chmod 755 /mnt/jenkins-data</code></pre><h2 id="参考资料">参考资料</h2><ul><li><a href="https://www.jenkins.io/doc/book/installing/kubernetes/">Jenkins 在 Kubernetes 上的安装</a></li><li><a href="https://devopscube.com/setup-jenkins-on-kubernetes-cluster/">How To Setup Jenkins On Kubernetes Cluster &ndash; Beginners Guide</a></li></ul><hr /><p>最后更新时间：2026-07-14</p></main>
+sudo chmod 755 /mnt/jenkins-data</code></pre><h2 id="参考资料">参考资料</h2><ul><li><a href="https://www.jenkins.io/doc/book/installing/kubernetes/">Jenkins 在 Kubernetes 上的安装</a></li><li><a href="https://devopscube.com/setup-jenkins-on-kubernetes-cluster/">How To Setup Jenkins On Kubernetes Cluster &ndash; Beginners Guide</a></li></ul><hr /><p>最后更新时间：2026-07-15</p></main>
     <aside class="margin-area" id="margin-area-right"></aside>
   </body>
 </html>
