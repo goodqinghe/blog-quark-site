@@ -6,49 +6,21 @@
     <title>关于页 - 清河的个人博客</title>
     <meta name="description" content="关于页">
     <meta name="author" content="清河">
-    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/github-markdown.css">
     <style>
-        :root {
-            --max-width: 720px;
-            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
-            --font-mono: "JetBrains Mono", "Fira Code", monospace;
-            --color-text: #1a1a1a;
-            --color-muted: #6b7280;
-            --color-link: #2563eb;
-            --color-border: #e5e7eb;
-            --color-bg: #ffffff;
-            --color-code-bg: #f3f4f6;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: var(--font-sans);
-            color: var(--color-text);
-            background: var(--color-bg);
-            line-height: 1.8;
-            padding: 2rem 1rem;
-            max-width: var(--max-width);
-            margin: 0 auto;
-        }
-        header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-border); }
-        header a { color: var(--color-muted); text-decoration: none; font-size: 0.9rem; }
-        header a:hover { color: var(--color-link); }
-        .page h1 { font-size: 1.8rem; margin-bottom: 1rem; }
-        .page h2 { font-size: 1.3rem; margin-top: 2rem; margin-bottom: 0.5rem; }
-        .page p { margin-bottom: 1rem; }
-        .page ul { margin-bottom: 1rem; padding-left: 1.5rem; }
-        .page a { color: var(--color-link); text-decoration: none; }
-        .page a:hover { text-decoration: underline; }
-        footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--color-border); }
-        footer a { color: var(--color-muted); text-decoration: none; font-size: 0.85rem; }
-        footer a:hover { color: var(--color-link); }
+        body { max-width: 720px; margin: 0 auto; padding: 2rem 1rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif; }
+        nav a { color: #666; text-decoration: none; font-size: 0.9rem; }
+        nav a:hover { color: #0969da; }
     </style>
 </head>
 <body>
-    <header>
+    <nav>
         <a href="/">&larr; 返回首页</a>
-    </header>
-    <div class="page">
-        <h1>关于页</h1>
+    </nav>
+
+    <h1>关于页</h1>
+
+    <article class="markdown-body">
         <h2>网站简介</h2>
 <p>你好啊！</p>
 <p>这个网站主要是一个还没定型的个人网站。</p>
@@ -60,9 +32,10 @@
 <li><a href="https://github.com/goodqinghe">GitHub</a></li>
 <li><a href="mailto:qinghe-dev@outlook.com">Email</a></li>
 </ul>
-    </div>
-    <footer>
-        <a href="/">&larr; 返回首页</a>
+    </article>
+
+    <footer style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
+        <nav><a href="/">&larr; 返回首页</a></nav>
     </footer>
 </body>
 </html>

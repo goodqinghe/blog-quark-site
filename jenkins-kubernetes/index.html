@@ -6,94 +6,35 @@
     <title>Jenkins 在 Kubernetes 上的搭建 - 清河的个人博客</title>
     <meta name="description" content="Jenkins 在 Kubernetes 上的搭建">
     <meta name="author" content="清河">
+    <link rel="stylesheet" href="/css/github-markdown.css">
     <link rel="stylesheet" href="/css/highlight.css">
     <style>
-        :root {
-            --max-width: 720px;
-            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
-            --font-mono: "JetBrains Mono", "Fira Code", monospace;
-            --color-text: #1a1a1a;
-            --color-muted: #6b7280;
-            --color-link: #2563eb;
-            --color-border: #e5e7eb;
-            --color-bg: #ffffff;
-            --color-code-bg: #f3f4f6;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: var(--font-sans);
-            color: var(--color-text);
-            background: var(--color-bg);
-            line-height: 1.8;
-            padding: 2rem 1rem;
-            max-width: var(--max-width);
-            margin: 0 auto;
-        }
-        header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--color-border); }
-        header a { color: var(--color-muted); text-decoration: none; font-size: 0.9rem; }
-        header a:hover { color: var(--color-link); }
-        article h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
-        .meta { color: var(--color-muted); font-size: 0.85rem; margin-bottom: 2rem; }
+        body { max-width: 720px; margin: 0 auto; padding: 2rem 1rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", sans-serif; }
+        nav a { color: #666; text-decoration: none; font-size: 0.9rem; }
+        nav a:hover { color: #0969da; }
+        .meta { color: #666; font-size: 0.85rem; margin-bottom: 1.5rem; }
         .meta span + span::before { content: " · "; }
-        article h2 { font-size: 1.3rem; margin-top: 2rem; margin-bottom: 0.5rem; padding-bottom: 0.3rem; border-bottom: 1px solid var(--color-border); }
-        article h3 { font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; }
-        article p { margin-bottom: 1rem; }
-        article ul, article ol { margin-bottom: 1rem; padding-left: 1.5rem; }
-        article li { margin-bottom: 0.3rem; }
-        article a { color: var(--color-link); text-decoration: none; }
-        article a:hover { text-decoration: underline; }
-        article img { max-width: 100%; height: auto; border-radius: 4px; margin: 1rem 0; }
-        article blockquote {
-            border-left: 3px solid var(--color-border);
-            padding: 0.5rem 1rem;
-            margin: 1rem 0;
-            color: var(--color-muted);
-        }
-        article code {
-            font-family: var(--font-mono);
-            background: var(--color-code-bg);
-            padding: 0.15rem 0.4rem;
-            border-radius: 3px;
-            font-size: 0.9em;
-        }
-        article pre {
-            background: var(--color-code-bg);
-            padding: 1rem;
-            border-radius: 6px;
-            overflow-x: auto;
-            margin: 1rem 0;
-        }
-        article pre code { background: none; padding: 0; }
-        article hr { border: none; border-top: 1px solid var(--color-border); margin: 2rem 0; }
-        article table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
-        article th, article td { border: 1px solid var(--color-border); padding: 0.5rem; text-align: left; }
-        footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--color-border); }
-        footer a { color: var(--color-muted); text-decoration: none; font-size: 0.85rem; }
-        footer a:hover { color: var(--color-link); }
-        .tags { margin-top: 0.5rem; }
-        .tag { display: inline-block; background: var(--color-code-bg); padding: 0.1rem 0.5rem; border-radius: 3px; font-size: 0.8rem; color: var(--color-muted); margin-right: 0.3rem; }
+        .tag { display: inline-block; background: #f0f0f0; padding: 0.1rem 0.5rem; border-radius: 3px; font-size: 0.8rem; color: #666; margin-right: 0.3rem; }
     </style>
 </head>
 <body>
-    <header>
+    <nav>
         <a href="/">&larr; 返回首页</a>
-    </header>
-    <article>
-        <h1>Jenkins 在 Kubernetes 上的搭建</h1>
-        <div class="meta">
-            <span>2026-07-27</span>
-            
-            <span>DevOps 实践</span>
-        </div>
+    </nav>
+
+    <h1>Jenkins 在 Kubernetes 上的搭建</h1>
+    <div class="meta">
+        <span>2026-07-27</span>
         
-        <div class="tags">
-            
-            <span class="tag">jenkins</span>
-            
-            <span class="tag">kubernetes</span>
-            
-        </div>
-        
+        <span>DevOps 实践</span>
+    </div>
+    
+    <div style="margin-bottom: 1.5rem;">
+        <span class="tag">jenkins</span><span class="tag">kubernetes</span>
+    </div>
+    
+
+    <article class="markdown-body">
         <blockquote>
 <p>本文基于 Jenkins 官方 Kubernetes 安装文档进行实践，不重复展开全部官方配置文件，而是重点记录部署思路、关键配置改动以及实际验证过程。涉及的 YAML 仅保留与当前环境相关的核心片段。
 YAML 配置文件的完整版本请参考 Jenkins 官方文档：<a href="https://www.jenkins.io/doc/book/installing/kubernetes/">https://www.jenkins.io/doc/book/installing/kubernetes/</a></p>
@@ -180,8 +121,9 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</sp
 <li><a href="https://devopscube.com/setup-jenkins-on-kubernetes-cluster/">How To Setup Jenkins On Kubernetes Cluster - Beginners Guide</a></li>
 </ul>
     </article>
-    <footer>
-        <a href="/">&larr; 返回首页</a>
+
+    <footer style="margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
+        <nav><a href="/">&larr; 返回首页</a></nav>
     </footer>
 </body>
 </html>
