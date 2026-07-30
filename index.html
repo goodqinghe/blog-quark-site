@@ -1,27 +1,100 @@
 <!DOCTYPE html>
-<html lang="zh">
-  <head>
-    <meta name="generator" content="Quarkdown">
+<html lang="zh-CN">
+<head>
     <meta charset="UTF-8">
-    <meta name="description" content="主页">
-    <meta name="author" content="清河">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="quarkdown:root-path" content=".">
-    <title>qinghelog</title>
-    <script src="./script/quarkdown.min.js"></script>
-    <script>const capabilities = window.quarkdownCapabilities</script>
-    <script>window.texMacros = {}</script>
-    <link href="./lib/bootstrap-icons/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="./theme/theme.css" rel="stylesheet">
+    <title>清河日志</title>
+    <meta name="description" content="最是人间留不住，朱颜辞镜花辞树">
+    <meta name="author" content="清河">
     <style>
+        :root {
+            --max-width: 720px;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+            --color-text: #1a1a1a;
+            --color-muted: #6b7280;
+            --color-link: #2563eb;
+            --color-border: #e5e7eb;
+            --color-bg: #ffffff;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: var(--font-sans);
+            color: var(--color-text);
+            background: var(--color-bg);
+            line-height: 1.8;
+            padding: 2rem 1rem;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+        .hero { text-align: center; margin-bottom: 3rem; }
+        .hero h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .hero p { color: var(--color-muted); font-size: 1rem; }
+        .hero .quote { font-style: italic; margin-top: 1rem; color: var(--color-muted); }
+        .nav { margin-bottom: 2rem; }
+        .nav a { color: var(--color-link); text-decoration: none; margin-right: 1rem; }
+        .nav a:hover { text-decoration: underline; }
+        .category { margin-bottom: 2rem; }
+        .category h2 {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.3rem;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .article-list { list-style: none; }
+        .article-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+        .article-list li:last-child { border-bottom: none; }
+        .article-list a { color: var(--color-text); text-decoration: none; font-weight: 500; }
+        .article-list a:hover { color: var(--color-link); }
+        .article-list .date { color: var(--color-muted); font-size: 0.85rem; white-space: nowrap; margin-left: 1rem; }
+        footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--color-border); text-align: center; }
+        footer p { color: var(--color-muted); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>清河日志</h1>
+        <p class="quote">最是人间留不住，朱颜辞镜花辞树</p>
+    </div>
 
-</style>
-    <script>prepare(new PlainDocument());</script>
-<template id="sidebar-template"><nav class="sidebar" role="doc-toc"><ol><li data-target-id="介绍" data-depth="2"><a href="#介绍">介绍</a></li><li data-target-id="文章列表" data-depth="2"><a href="#文章列表">文章列表</a><ol><li data-target-id="博客搭建" data-depth="3"><a href="#博客搭建">博客搭建</a></li><li data-target-id="编程笔记" data-depth="3"><a href="#编程笔记">编程笔记</a></li><li data-target-id="devops-实践" data-depth="3"><a href="#devops-实践">DevOps 实践</a></li></ol></li></ol></nav>
-</template>  </head>
-  <body class="quarkdown quarkdown-plain">
-    <aside class="margin-area" id="margin-area-left"></aside>
-    <main><div class="container fullwidth" style="justify-items: center; text-align: center;"><h1 id="最是人间留不住朱颜辞镜花辞树" data-decorative="">最是人间留不住，朱颜辞镜花辞树</h1></div><div class="container fullwidth" style="justify-items: end; text-align: end;"><p>&mdash; 王国维</p></div><h2 id="介绍">介绍</h2><ul><li><a href="./About">关于页</a></li><li><a href="./files/TODO.html">近期计划</a></li></ul><h2 id="文章列表">文章列表</h2><h3 id="博客搭建">博客搭建</h3><ul><li><a href="./files/TODO.html">Quarkdown 博客搭建记录</a></li><li><a href="./files/TODO.html">Quarkdown 语法备忘录</a></li></ul><h3 id="编程笔记">编程笔记</h3><ul><li><a href="./files/TODO.html">JavaScript 笔记</a></li><li><a href="./files/TODO.html">Python 笔记</a></li></ul><h3 id="devops-实践">DevOps 实践</h3><ul><li><a href="./files/TODO.html">Jenkins 在 Kubernetes 上的搭建</a></li><li><a href="./files/TODO.html">Jenkins 创建第一个流水线</a></li><li><a href="./files/TODO.html">使用 Docker 部署 Gitea</a></li></ul><hr /><p>最后更新时间：2026-07-30</p><p><a href="https://blog.qinghelog.top/">返回主页</a></p></main>
-    <aside class="margin-area" id="margin-area-right"></aside>
-  </body>
+    <div class="nav">
+        <a href="/about/">关于</a>
+    </div>
+
+    
+    
+    <div class="category">
+        <h2>DevOps 实践</h2>
+        <ul class="article-list">
+            
+            <li>
+                <a href="/jenkins-kubernetes/">Jenkins 在 Kubernetes 上的搭建</a>
+                <span class="date">2026-07-27</span>
+            </li>
+            
+            <li>
+                <a href="/jenkins-pipeline/">Jenkins 创建第一个流水线</a>
+                <span class="date">2026-07-27</span>
+            </li>
+            
+        </ul>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <footer>
+        <p>&copy; 清河</p>
+    </footer>
+</body>
 </html>
