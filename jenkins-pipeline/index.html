@@ -6,6 +6,7 @@
     <title>Jenkins 创建第一个流水线 - 清河的个人博客</title>
     <meta name="description" content="Jenkins 创建第一个流水线">
     <meta name="author" content="清河">
+    <link rel="stylesheet" href="/css/highlight.css">
     <style>
         :root {
             --max-width: 720px;
@@ -118,52 +119,52 @@
 </li>
 <li>选择刚才添加的凭据，点击 "生成流水线脚本"，得到类似如下的脚本：</li>
 </ol>
-<pre class="codehilite"><code class="language-java">git branch: 'main', credentialsId: '&lt;凭据ID&gt;', url: 'git@github.com:&lt;github-username&gt;/&lt;repository&gt;.git'
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="n">git</span><span class="w"> </span><span class="n">branch</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">main</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">credentialsId</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="o">&lt;</span><span class="n">凭据ID</span><span class="o">&gt;</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">git</span><span class="nd">@github.com</span><span class="p">:</span><span class="o">&lt;</span><span class="n">github</span><span class="o">-</span><span class="n">username</span><span class="o">&gt;/&lt;</span><span class="n">repository</span><span class="o">&gt;</span><span class="p">.</span><span class="na">git</span><span class="err">&#39;</span>
+</code></pre></div>
 
 <p><img alt="流水线语法" src="./assets/jenkins-pipeline-pipeline-syntax.png" /></p>
 <ol>
 <li>将生成的脚本复制到流水线脚本输入框中，再写一些脚本，我的目的是让 Jenkins 执行 列出二层目录 命令，所以脚本如下：</li>
 </ol>
-<pre class="codehilite"><code class="language-java">pipeline {
-    agent any
-    stages {
-        stage('Checkout Code') {
-            steps {
-                git branch: 'main',
-                    credentialsId: &quot;&lt;凭据ID&gt;&quot;,
-                    url: 'git@github.com:&lt;github-username&gt;/&lt;repository&gt;.git'
-            }
-        }
+<div class="codehilite"><pre><span></span><code><span class="n">pipeline</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">agent</span><span class="w"> </span><span class="n">any</span>
+<span class="w">    </span><span class="n">stages</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">stage</span><span class="p">(</span><span class="err">&#39;</span><span class="n">Checkout</span><span class="w"> </span><span class="n">Code</span><span class="err">&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">steps</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">git</span><span class="w"> </span><span class="n">branch</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">main</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">credentialsId</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;凭据ID&gt;&quot;</span><span class="p">,</span>
+<span class="w">                    </span><span class="n">url</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">git</span><span class="nd">@github.com</span><span class="p">:</span><span class="o">&lt;</span><span class="n">github</span><span class="o">-</span><span class="n">username</span><span class="o">&gt;/&lt;</span><span class="n">repository</span><span class="o">&gt;</span><span class="p">.</span><span class="na">git</span><span class="err">&#39;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
 
-        stage('Show Directory Tree') {
-            steps {
-                sh '''
-                    echo &quot;当前工作目录: $(pwd)&quot;
-                    echo &quot;列出前两层目录结构：&quot;
-                    if command -v tree &gt;/dev/null 2&gt;&amp;1; then
-                        tree -L 2
-                    else
-                        echo &quot;tree 命令不存在，尝试安装或使用 find 替代&quot;
-                        find . -maxdepth 2 | sort
-                    fi
-                '''
-            }
-        }
-    }
-    post {
-        success {
-            echo '流水线执行成功'
-        }
-        failure {
-            echo '流水线执行失败'
-        }
-        always {
-            cleanWs()
-        }
-    }
-}
-</code></pre>
+<span class="w">        </span><span class="n">stage</span><span class="p">(</span><span class="err">&#39;</span><span class="n">Show</span><span class="w"> </span><span class="n">Directory</span><span class="w"> </span><span class="n">Tree</span><span class="err">&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">steps</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="n">sh</span><span class="w"> </span><span class="sc">&#39;&#39;&#39;</span>
+<span class="w">                    </span><span class="n">echo</span><span class="w"> </span><span class="s">&quot;当前工作目录: $(pwd)&quot;</span>
+<span class="w">                    </span><span class="n">echo</span><span class="w"> </span><span class="s">&quot;列出前两层目录结构：&quot;</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="n">tree</span><span class="w"> </span><span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="kc">null</span><span class="w"> </span><span class="mi">2</span><span class="o">&gt;&amp;</span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">then</span>
+<span class="w">                        </span><span class="n">tree</span><span class="w"> </span><span class="o">-</span><span class="n">L</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">                    </span><span class="k">else</span>
+<span class="w">                        </span><span class="n">echo</span><span class="w"> </span><span class="s">&quot;tree 命令不存在，尝试安装或使用 find 替代&quot;</span>
+<span class="w">                        </span><span class="n">find</span><span class="w"> </span><span class="p">.</span><span class="w"> </span><span class="o">-</span><span class="n">maxdepth</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">sort</span>
+<span class="w">                    </span><span class="n">fi</span>
+<span class="w">                </span><span class="sc">&#39;&#39;&#39;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">post</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">success</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">echo</span><span class="w"> </span><span class="err">&#39;</span><span class="n">流水线执行成功</span><span class="err">&#39;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">failure</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">echo</span><span class="w"> </span><span class="err">&#39;</span><span class="n">流水线执行失败</span><span class="err">&#39;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">always</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">cleanWs</span><span class="p">()</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 
 <blockquote>
 <p>cleanWs() 需要安装 Workspace Cleanup 插件；如果未安装，可先删除这一段。</p>
@@ -176,8 +177,8 @@
 <li>关于 Jenkins 主机密钥验证（Host key verification）的问题</li>
 </ol>
 <p>创建成功后运行的时候，可能会遇到如下错误：</p>
-<pre class="codehilite"><code class="language-text">Host key verification failed
-</code></pre>
+<div class="codehilite"><pre><span></span><code>Host key verification failed
+</code></pre></div>
 
 <p>这个错误说明 Jenkins 当前环境还没有接受 GitHub 的主机密钥。</p>
 <p>解决方法：</p>

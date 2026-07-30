@@ -6,6 +6,7 @@
     <title>Jenkins 在 Kubernetes 上的搭建 - 清河的个人博客</title>
     <meta name="description" content="Jenkins 在 Kubernetes 上的搭建">
     <meta name="author" content="清河">
+    <link rel="stylesheet" href="/css/highlight.css">
     <style>
         :root {
             --max-width: 720px;
@@ -111,8 +112,8 @@ YAML 配置文件的完整版本请参考 Jenkins 官方文档：<a href="https:
     &gt; 这样可以减少干扰 <code>/mnt</code> 目录下的其他数据。</li>
 <li>访问方式使用 SSH 端口转发，命令如下：</li>
 </ol>
-<pre class="codehilite"><code class="language-bash">ssh -L 32000:127.0.0.1:32000 &lt;用户名&gt;@&lt;服务器IP&gt; -N
-</code></pre>
+<div class="codehilite"><pre><span></span><code>ssh<span class="w"> </span>-L<span class="w"> </span><span class="m">32000</span>:127.0.0.1:32000<span class="w"> </span>&lt;用户名&gt;@&lt;服务器IP&gt;<span class="w"> </span>-N
+</code></pre></div>
 
 <p>参数说明：
 - <code>-L 32000:127.0.0.1:32000</code>：在本地监听 32000 端口，并将流量转发到服务器的 32000 端口
@@ -147,15 +148,15 @@ YAML 配置文件的完整版本请参考 Jenkins 官方文档：<a href="https:
 <li>local PV 对应的目录必须存在</li>
 </ol>
 <p>如果 PV 中配置的是：</p>
-<pre class="codehilite"><code class="language-yaml">spec:
-  local:
-    path: /mnt/jenkins-data
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">local</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/mnt/jenkins-data</span>
+</code></pre></div>
 
 <p>那么节点上的 <code>/mnt/jenkins-data</code> 目录必须提前创建。
 否则 Pod 会在挂载阶段失败，并出现类似报错：</p>
-<pre class="codehilite"><code class="language-text">MountVolume.NewMounter initialization failed for volume &quot;jenkins-pv-volume&quot; : path &quot;/mnt/jenkins-data&quot; does not exist
-</code></pre>
+<div class="codehilite"><pre><span></span><code>MountVolume.NewMounter initialization failed for volume &quot;jenkins-pv-volume&quot; : path &quot;/mnt/jenkins-data&quot; does not exist
+</code></pre></div>
 
 <ol>
 <li>
@@ -168,10 +169,10 @@ YAML 配置文件的完整版本请参考 Jenkins 官方文档：<a href="https:
 <li>如果是 root 用户创建目录，通常需要先用 <code>chmod</code> 调整权限，再用 <code>chown</code> 将目录所有权转移给 Jenkins 进程运行用户。</li>
 <li>相关命令示例：</li>
 </ol>
-<pre class="codehilite"><code class="language-bash">sudo mkdir -p /mnt/jenkins-data
-sudo chown -R 1000:1000 /mnt/jenkins-data
-sudo chmod 755 /mnt/jenkins-data
-</code></pre>
+<div class="codehilite"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/jenkins-data
+sudo<span class="w"> </span>chown<span class="w"> </span>-R<span class="w"> </span><span class="m">1000</span>:1000<span class="w"> </span>/mnt/jenkins-data
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">755</span><span class="w"> </span>/mnt/jenkins-data
+</code></pre></div>
 
 <h2 id="_7">参考资料</h2>
 <ul>
