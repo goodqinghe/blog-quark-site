@@ -14,7 +14,7 @@ title: Jenkins 创建第一个流水线
 
 ## 最小流水线
 
-```groovy
+```java
 pipeline {
   agent any
 
