@@ -1,5 +1,20 @@
 [
   {
+    "title": "联系方式",
+    "sourcePath": "about/contact.md",
+    "url": "/about/contact.html"
+  },
+  {
+    "title": "关于我",
+    "sourcePath": "about/index.md",
+    "url": "/about/index.html"
+  },
+  {
+    "title": "最近在做什么",
+    "sourcePath": "about/now.md",
+    "url": "/about/now.html"
+  },
+  {
     "title": "Jenkins 创建第一个流水线",
     "sourcePath": "devops/jenkins/jenkins-create-first-pipeline.md",
     "url": "/devops/jenkins/jenkins-create-first-pipeline.html"
