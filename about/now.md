@@ -17,3 +17,18 @@ title: 最近在做什么
 ## 近期计划
 
 <!-- 写下未来几周或几个月想完成的事。完成后删除或移到对应文章。 -->
+
+## mermaid 测试
+
+```mermaid
+---
+config:
+  htmlLabels: false
+---
+flowchart LR
+    markdown["`This **is** _Markdown_`"]
+    newLines["`Line1
+    Line 2
+    Line 3`"]
+    markdown --> newLines
+```
