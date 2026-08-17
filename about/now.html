@@ -1,4 +1,13 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>最近在做什么 · 清河的博客</title><link rel="stylesheet" href="../_site/style.css"></head><body><header><a class="brand" href="../index.html">清河的博客</a><span>Markdown → HTML</span></header><div class="layout"><aside><p>文件目录</p><ul><li><span>about</span><ul><li><a href="/about/contact.html">联系方式</a></li><li><a href="/about/index.html">关于我</a></li><li><a href="/about/now.html">最近在做什么</a></li></ul></li><li><span>devops</span><ul><li><span>jenkins</span><ul><li><a href="/devops/jenkins/jenkins-create-first-pipeline.html">Jenkins 创建第一个流水线</a></li></ul></li></ul></li></ul></aside><main><p class="path">/about/now.md</p><article><h1 id="最近在做什么">最近在做什么</h1><p>&lt;!-- 这是一个可以随时更新的页面。不必记录每天的事情，只保留当前还在推进的方向。 --&gt;</p><h2 id="正在学习">正在学习</h2><p>&lt;!-- 例如：某个技术方向、一本书或一门课程。 --&gt;</p><h2 id="正在做">正在做</h2><p>&lt;!-- 例如：个人项目、博客整理或工作中的一个主题。 --&gt;</p><h2 id="近期计划">近期计划</h2><p>&lt;!-- 写下未来几周或几个月想完成的事。完成后删除或移到对应文章。 --&gt;</p><h2 id="mermaid-测试">mermaid 测试</h2><pre><code class="language-mermaid">---
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>最近在做什么 · 清河的博客</title><link rel="stylesheet" href="../_site/style.css"></head><body><header><a class="brand" href="../index.html">清河的博客</a><span>Markdown → HTML</span></header><div class="layout"><aside><p>文件目录</p><ul><li><span>about</span><ul><li><a href="/about/contact.html">联系方式</a></li><li><a href="/about/index.html">关于我</a></li><li><a href="/about/now.html">最近在做什么</a></li></ul></li><li><span>devops</span><ul><li><span>jenkins</span><ul><li><a href="/devops/jenkins/jenkins-create-first-pipeline.html">Jenkins 创建第一个流水线</a></li></ul></li></ul></li></ul></aside><main><p class="path">/about/now.md</p><article><h1>最近在做什么</h1>
+<!-- 这是一个可以随时更新的页面。不必记录每天的事情，只保留当前还在推进的方向。 -->
+<h2>正在学习</h2>
+<!-- 例如：某个技术方向、一本书或一门课程。 -->
+<h2>正在做</h2>
+<!-- 例如：个人项目、博客整理或工作中的一个主题。 -->
+<h2>近期计划</h2>
+<!-- 写下未来几周或几个月想完成的事。完成后删除或移到对应文章。 -->
+<h2>mermaid 测试</h2>
+<pre class="mermaid">---
 config:
   htmlLabels: false
 ---
@@ -7,4 +16,21 @@ flowchart LR
     newLines[&quot;`Line1
     Line 2
     Line 3`&quot;]
-    markdown --&gt; newLines</code></pre></article></main></div></body></html>
+    markdown --&gt; newLines
+</pre>
+</article></main></div><script type="module">
+import mermaid from "../_site/mermaid/mermaid.esm.min.mjs";
+mermaid.initialize({ startOnLoad: false, securityLevel: "strict", theme: matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "default" });
+for (const [index, diagram] of [...document.querySelectorAll("pre.mermaid")].entries()) {
+  const source = diagram.textContent;
+  try {
+    const { svg } = await mermaid.render("mermaid-diagram-" + index, source);
+    diagram.innerHTML = svg;
+    diagram.classList.add("is-rendered");
+  } catch (error) {
+    diagram.textContent = source;
+    diagram.classList.add("has-error");
+    console.error("Mermaid rendering failed", error);
+  }
+}
+</script></body></html>

@@ -1,23 +1,48 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jenkins 创建第一个流水线 · 清河的博客</title><link rel="stylesheet" href="../../_site/style.css"></head><body><header><a class="brand" href="../../index.html">清河的博客</a><span>Markdown → HTML</span></header><div class="layout"><aside><p>文件目录</p><ul><li><span>about</span><ul><li><a href="/about/contact.html">联系方式</a></li><li><a href="/about/index.html">关于我</a></li><li><a href="/about/now.html">最近在做什么</a></li></ul></li><li><span>devops</span><ul><li><span>jenkins</span><ul><li><a href="/devops/jenkins/jenkins-create-first-pipeline.html">Jenkins 创建第一个流水线</a></li></ul></li></ul></li></ul></aside><main><p class="path">/devops/jenkins/jenkins-create-first-pipeline.md</p><article><h1 id="jenkins-创建第一个流水线">Jenkins 创建第一个流水线</h1><p>这篇记录从零创建一个可重复执行的 Jenkins Pipeline。目标不是堆复杂配置，而是先让构建、测试和结果反馈形成一条稳定链路。</p><h2 id="创建-pipeline-任务">创建 Pipeline 任务</h2><p>在 Jenkins 首页选择“新建任务”，输入任务名称，选择 <strong>Pipeline</strong>，然后确认创建。</p><p>建议先使用“Pipeline script”直接粘贴一段最小脚本，验证 Jenkins Agent、工具链与日志是否正常；脚本稳定后再迁移到代码仓库中的 <code>Jenkinsfile</code>。</p><h2 id="最小流水线">最小流水线</h2><pre><code class="language-java"><span class="token-keyword">pipeline</span> {
-  <span class="token-keyword">agent</span> <span class="token-keyword">any</span>
-
-  <span class="token-keyword">stages</span> {
-    <span class="token-keyword">stage</span>(<span class="token-string">'检出代码'</span>) {
-      <span class="token-keyword">steps</span> {
-        <span class="token-keyword">checkout</span> scm
-      }
-    }
-
-    <span class="token-keyword">stage</span>(<span class="token-string">'构建'</span>) {
-      <span class="token-keyword">steps</span> {
-        <span class="token-keyword">sh</span> <span class="token-string">'echo &quot;开始构建&quot;'</span>
-      }
-    }
-
-    <span class="token-keyword">stage</span>(<span class="token-string">'测试'</span>) {
-      <span class="token-keyword">steps</span> {
-        <span class="token-keyword">sh</span> <span class="token-string">'echo &quot;开始测试&quot;'</span>
-      }
-    }
-  }
-}</code></pre><h2 id="配置代码来源">配置代码来源</h2><p>如果任务连接 Git 仓库，在“Pipeline”设置中选择 <strong>Pipeline script from SCM</strong>：</p><ol><li>SCM 选择 Git；</li><li>填写仓库地址和凭据；</li><li>分支先填 <code>main</code>；</li><li>Script Path 填 <code>Jenkinsfile</code>。</li></ol><p>这样，每次构建都使用代码仓库中同一次提交对应的流水线定义。</p><h2 id="第一次执行时要看什么">第一次执行时要看什么</h2><ul><li>Agent 是否成功分配；</li><li>Git 凭据和仓库地址是否有效；</li><li>构建环境中是否有需要的 JDK、Node.js、Docker 等工具；</li><li>Console Output 是否能清楚显示失败阶段。</li></ul><p>先让流程足够短、日志足够清晰。部署、制品上传和通知，等构建与测试稳定后再依次加入。</p></article></main></div></body></html>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Jenkins 创建第一个流水线 · 清河的博客</title><link rel="stylesheet" href="../../_site/style.css"></head><body><header><a class="brand" href="../../index.html">清河的博客</a><span>Markdown → HTML</span></header><div class="layout"><aside><p>文件目录</p><ul><li><span>about</span><ul><li><a href="/about/contact.html">联系方式</a></li><li><a href="/about/index.html">关于我</a></li><li><a href="/about/now.html">最近在做什么</a></li></ul></li><li><span>devops</span><ul><li><span>jenkins</span><ul><li><a href="/devops/jenkins/jenkins-create-first-pipeline.html">Jenkins 创建第一个流水线</a></li></ul></li></ul></li></ul></aside><main><p class="path">/devops/jenkins/jenkins-create-first-pipeline.md</p><article><h1>Jenkins 创建第一个流水线</h1>
+<p>这篇记录从零创建一个可重复执行的 Jenkins Pipeline。目标不是堆复杂配置，而是先让构建、测试和结果反馈形成一条稳定链路。</p>
+<h2>创建 Pipeline 任务</h2>
+<p>在 Jenkins 首页选择“新建任务”，输入任务名称，选择 <strong>Pipeline</strong>，然后确认创建。</p>
+<p>建议先使用“Pipeline script”直接粘贴一段最小脚本，验证 Jenkins Agent、工具链与日志是否正常；脚本稳定后再迁移到代码仓库中的 <code>Jenkinsfile</code>。</p>
+<h2>最小流水线</h2>
+<pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">pipeline {</span></span>
+<span class="line"><span style="color:#E1E4E8">  agent any</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  stages {</span></span>
+<span class="line"><span style="color:#B392F0">    stage</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'检出代码'</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">      steps {</span></span>
+<span class="line"><span style="color:#E1E4E8">        checkout scm</span></span>
+<span class="line"><span style="color:#E1E4E8">      }</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">    stage</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'构建'</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">      steps {</span></span>
+<span class="line"><span style="color:#E1E4E8">        sh </span><span style="color:#9ECBFF">'echo "开始构建"'</span></span>
+<span class="line"><span style="color:#E1E4E8">      }</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">    stage</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'测试'</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">      steps {</span></span>
+<span class="line"><span style="color:#E1E4E8">        sh </span><span style="color:#9ECBFF">'echo "开始测试"'</span></span>
+<span class="line"><span style="color:#E1E4E8">      }</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<h2>配置代码来源</h2>
+<p>如果任务连接 Git 仓库，在“Pipeline”设置中选择 <strong>Pipeline script from SCM</strong>：</p>
+<ol>
+<li>SCM 选择 Git；</li>
+<li>填写仓库地址和凭据；</li>
+<li>分支先填 <code>main</code>；</li>
+<li>Script Path 填 <code>Jenkinsfile</code>。</li>
+</ol>
+<p>这样，每次构建都使用代码仓库中同一次提交对应的流水线定义。</p>
+<h2>第一次执行时要看什么</h2>
+<ul>
+<li>Agent 是否成功分配；</li>
+<li>Git 凭据和仓库地址是否有效；</li>
+<li>构建环境中是否有需要的 JDK、Node.js、Docker 等工具；</li>
+<li>Console Output 是否能清楚显示失败阶段。</li>
+</ul>
+<p>先让流程足够短、日志足够清晰。部署、制品上传和通知，等构建与测试稳定后再依次加入。</p>
+</article></main></div></body></html>
