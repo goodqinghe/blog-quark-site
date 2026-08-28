@@ -15,8 +15,8 @@
     "url": "/about/now.html"
   },
   {
-    "title": "Jenkins 创建第一个流水线",
-    "sourcePath": "devops/jenkins/jenkins-create-first-pipeline.md",
-    "url": "/devops/jenkins/jenkins-create-first-pipeline.html"
+    "title": "这个博客是怎么搭起来的",
+    "sourcePath": "blog/how-this-blog-is-built.md",
+    "url": "/blog/how-this-blog-is-built.html"
   }
 ]

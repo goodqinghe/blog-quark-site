@@ -1,36 +1,42 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>最近在做什么 · 清河的博客</title><link rel="stylesheet" href="../_site/style.css"></head><body><header><a class="brand" href="../index.html">清河的博客</a><span>Markdown → HTML</span></header><div class="layout"><aside><p>文件目录</p><ul><li><span>about</span><ul><li><a href="/about/contact.html">联系方式</a></li><li><a href="/about/index.html">关于我</a></li><li><a href="/about/now.html">最近在做什么</a></li></ul></li><li><span>devops</span><ul><li><span>jenkins</span><ul><li><a href="/devops/jenkins/jenkins-create-first-pipeline.html">Jenkins 创建第一个流水线</a></li></ul></li></ul></li></ul></aside><main><p class="path">/about/now.md</p><article><h1>最近在做什么</h1>
-<!-- 这是一个可以随时更新的页面。不必记录每天的事情，只保留当前还在推进的方向。 -->
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>最近在做什么 · 清河的博客</title>
+  <link rel="stylesheet" href="../_site/style.css">
+</head>
+<body>
+  <header><a class="brand" href="../index.html">清河的博客</a><span>个人知识站</span></header>
+  <div class="layout">
+    <aside>
+      <nav class="desktop-nav" aria-label="内容导航"><p>内容</p><details class="nav-section" open><summary>关于</summary><ul><li><a href="/about/index.html">关于我</a></li><li><a class="is-active" aria-current="page" href="/about/now.html">最近在做什么</a></li><li><a href="/about/contact.html">联系方式</a></li></ul></details><details class="nav-section"><summary>博客建设</summary><ul><li><a href="/blog/how-this-blog-is-built.html">这个博客是怎么搭起来的</a></li></ul></details></nav>
+      <details class="mobile-nav"><summary>浏览内容</summary><nav aria-label="移动端内容导航"><details class="nav-section" open><summary>关于</summary><ul><li><a href="/about/index.html">关于我</a></li><li><a class="is-active" aria-current="page" href="/about/now.html">最近在做什么</a></li><li><a href="/about/contact.html">联系方式</a></li></ul></details><details class="nav-section"><summary>博客建设</summary><ul><li><a href="/blog/how-this-blog-is-built.html">这个博客是怎么搭起来的</a></li></ul></details></nav></details>
+    </aside>
+    <main>
+      <nav class="breadcrumbs" aria-label="当前位置"><a href="../index.html">首页</a><span aria-hidden="true">/</span><a href="/about/index.html">关于</a><span aria-hidden="true">/</span><span aria-current="page">最近在做什么</span></nav>
+      <article><h1>最近在做什么</h1>
+<p>这里不记录每天的流水账，只保留当前还在推进的几件事。</p>
 <h2>正在学习</h2>
-<!-- 例如：某个技术方向、一本书或一门课程。 -->
+<ul>
+<li>继续补 Linux、计算机网络和运维相关基础；</li>
+<li>从真实 Java / Spring 项目中梳理请求入口、业务链路和部署结构；</li>
+<li>练习把“看过代码”变成“能够用自己的话解释代码”。</li>
+</ul>
 <h2>正在做</h2>
-<!-- 例如：个人项目、博客整理或工作中的一个主题。 -->
+<ul>
+<li>调整这个博客的首页和导航，让文件目录不再直接等于阅读目录；</li>
+<li>整理已有笔记，保留真正有用的内容，删除不适合作为个人作品展示的示例文章。</li>
+</ul>
 <h2>近期计划</h2>
-<!-- 写下未来几周或几个月想完成的事。完成后删除或移到对应文章。 -->
-<h2>mermaid 测试</h2>
-<pre class="mermaid">---
-config:
-  htmlLabels: false
----
-flowchart LR
-    markdown[&quot;`This **is** _Markdown_`&quot;]
-    newLines[&quot;`Line1
-    Line 2
-    Line 3`&quot;]
-    markdown --&gt; newLines
-</pre>
-</article></main></div><script type="module">
-import mermaid from "../_site/mermaid/mermaid.esm.min.mjs";
-mermaid.initialize({ startOnLoad: false, securityLevel: "strict", theme: matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "default" });
-for (const [index, diagram] of [...document.querySelectorAll("pre.mermaid")].entries()) {
-  const source = diagram.textContent;
-  try {
-    const { svg } = await mermaid.render("mermaid-diagram-" + index, source);
-    diagram.innerHTML = svg;
-    diagram.classList.add("is-rendered");
-  } catch (error) {
-    diagram.textContent = source;
-    diagram.classList.add("has-error");
-    console.error("Mermaid rendering failed", error);
-  }
-}
-</script></body></html>
+<ul>
+<li>继续形成一份自己能复述的项目地图；</li>
+<li>逐步补充技术文章，但不为了显得内容多而堆文章；</li>
+<li>根据学习和工作重心变化，定期把这一页改成真正的“现在”。</li>
+</ul>
+</article>
+    </main>
+  </div>
+  
+</body>
+</html>
