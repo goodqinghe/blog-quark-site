@@ -18,5 +18,10 @@
     "title": "这个博客是怎么搭起来的",
     "sourcePath": "blog/how-this-blog-is-built.md",
     "url": "/blog/how-this-blog-is-built.html"
+  },
+  {
+    "title": "Linux 信号学习",
+    "sourcePath": "tech/linux-signal-learning.md",
+    "url": "/tech/linux-signal-learning.html"
   }
 ]

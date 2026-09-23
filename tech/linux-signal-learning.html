@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Linux 信号学习 · 清河的博客</title>
+  <link rel="stylesheet" href="../_site/style.73a9b98881f1.css">
+</head>
+<body>
+  <header><a class="brand" href="../index.html">清河的博客</a><span>个人知识站</span></header>
+  <div class="layout">
+    <aside>
+      <nav class="desktop-nav" aria-label="内容导航"><p>内容</p><details class="nav-section"><summary>关于</summary><ul><li><a href="/about/index.html">关于我</a></li><li><a href="/about/now.html">最近在做什么</a></li><li><a href="/about/contact.html">联系方式</a></li></ul></details><details class="nav-section"><summary>博客建设</summary><ul><li><a href="/blog/how-this-blog-is-built.html">这个博客是怎么搭起来的</a></li></ul></details><details class="nav-section" open><summary> 技术学习</summary><ul><li><a class="is-active" aria-current="page" href="/tech/linux-signal-learning.html">Linux 信号学习</a></li></ul></details></nav>
+      <details class="mobile-nav"><summary>浏览内容</summary><nav aria-label="移动端内容导航"><details class="nav-section"><summary>关于</summary><ul><li><a href="/about/index.html">关于我</a></li><li><a href="/about/now.html">最近在做什么</a></li><li><a href="/about/contact.html">联系方式</a></li></ul></details><details class="nav-section"><summary>博客建设</summary><ul><li><a href="/blog/how-this-blog-is-built.html">这个博客是怎么搭起来的</a></li></ul></details><details class="nav-section" open><summary> 技术学习</summary><ul><li><a class="is-active" aria-current="page" href="/tech/linux-signal-learning.html">Linux 信号学习</a></li></ul></details></nav></details>
+    </aside>
+    <main>
+      <nav class="breadcrumbs" aria-label="当前位置"><a href="../index.html">首页</a><span aria-hidden="true">/</span><span> 技术学习</span><span aria-hidden="true">/</span><span aria-current="page">Linux 信号学习</span></nav>
+      <article><h1>Linux 信号学习</h1>
+<blockquote>
+<p>参考阅读路线</p>
+</blockquote>
+<h2>信号是什么？</h2>
+<p>以下是 <a href="https://www.baeldung.com/linux/">baeldung</a> 的 <a href="https://www.baeldung.com/linux/sigint-and-other-termination-signals">SIGINT And Other Termination Signals in Linux</a> 文章中关于信号的介绍：</p>
+<blockquote>
+<p>The <a href="https://man7.org/linux/man-pages/man7/signal.7.html">signals</a> are a method of communication between processes. When a process receives a signal, the process interrupts its execution and a signal handler is executed.</p>
+<p>以下是非官方翻译：</p>
+<p>信号是进程间通信的一种方式。当进程接收到信号时，进程会中断其执行，并执行信号处理程序。</p>
+</blockquote>
+<h2>参考资料</h2>
+<h3>入门</h3>
+<ul>
+<li><a href="https://www.baeldung.com/linux/sigint-and-other-termination-signals">SIGINT And Other Termination Signals in Linux - Baeldung</a>
+<ul>
+<li>适合第一次了解 Linux 信号。</li>
+<li>重点：<code>SIGINT</code>、<code>SIGTERM</code>、<code>SIGQUIT</code>、<code>SIGKILL</code> 的区别。</li>
+</ul>
+</li>
+</ul>
+<h3>Linux 官方 / 权威参考</h3>
+<ul>
+<li>
+<p><a href="https://man7.org/linux/man-pages/man7/signal.7.html">signal(7) - Linux manual page</a></p>
+<ul>
+<li>Linux 信号机制的核心参考资料。</li>
+<li>重点：signal disposition、default action、ignore、signal handler、blocking、pending。</li>
+</ul>
+</li>
+<li>
+<p><a href="https://man7.org/linux/man-pages/man1/kill.1.html">kill(1) - Linux manual page</a></p>
+<ul>
+<li><code>kill</code> 命令的参考文档。</li>
+<li>重点理解：<code>kill</code> 本质上是“发送信号”，而不只是“杀死进程”。</li>
+</ul>
+</li>
+<li>
+<p><a href="https://www.gnu.org/software/libc/manual/html_node/Signal-Handling.html">Signal Handling - GNU C Library Manual</a></p>
+<ul>
+<li>从程序和操作系统机制的角度理解信号。</li>
+<li>后续可以继续了解 <code>sigaction()</code>、signal mask 等内容。</li>
+</ul>
+</li>
+</ul>
+<h3>Shell、终端与 Job Control</h3>
+<ul>
+<li><a href="https://www.gnu.org/software/bash/manual/bash.html">GNU Bash Reference Manual</a>
+<ul>
+<li>用于理解 Bash 如何处理信号，以及 signal、终端、前台进程组和 Job Control 之间的关系。</li>
+<li>可以重点关注 <code>Ctrl+C</code>、<code>Ctrl+Z</code>、<code>SIGINT</code>、<code>SIGTSTP</code>。</li>
+</ul>
+</li>
+</ul>
+<h3>Docker / Kubernetes 实际应用</h3>
+<ul>
+<li>
+<p><a href="https://docs.docker.com/reference/cli/docker/container/stop/">docker container stop - Docker Docs</a></p>
+<ul>
+<li>理解容器停止时的 <code>SIGTERM → 等待 → SIGKILL</code> 流程。</li>
+</ul>
+</li>
+<li>
+<p><a href="https://docs.docker.com/reference/cli/docker/container/kill/">docker container kill - Docker Docs</a></p>
+<ul>
+<li>对比 <code>docker stop</code> 和 <code>docker kill</code>。</li>
+</ul>
+</li>
+<li>
+<p><a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/">Pod Lifecycle - Kubernetes Documentation</a></p>
+<ul>
+<li>理解 Pod 终止、graceful shutdown、<code>terminationGracePeriodSeconds</code> 与 Linux 信号之间的关系。</li>
+</ul>
+</li>
+<li>
+<p><a href="https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/">Pod 的生命周期 - Kubernetes 中文文档</a></p>
+<ul>
+<li>Kubernetes 官方中文版本。</li>
+</ul>
+</li>
+</ul>
+<h2>建议阅读顺序</h2>
+<ol>
+<li>Baeldung：先建立 <code>SIGINT</code>、<code>SIGTERM</code>、<code>SIGKILL</code> 等信号的基本认识。</li>
+<li><code>signal(7)</code>：建立准确的 Linux signal 模型。</li>
+<li><code>kill(1)</code>：结合命令实际操作。</li>
+<li>GNU Bash Manual：理解 <code>Ctrl+C</code>、终端和 Job Control。</li>
+<li>Docker：观察 signal 在容器停止中的实际应用。</li>
+<li>Kubernetes：进一步理解 Pod 的优雅终止机制。</li>
+<li>GNU C Library：需要继续深入 signal 底层机制时再阅读。</li>
+</ol>
+</article>
+    </main>
+  </div>
+  
+</body>
+</html>
