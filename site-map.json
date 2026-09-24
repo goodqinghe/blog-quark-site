@@ -15,6 +15,11 @@
     "url": "/about/now.html"
   },
   {
+    "title": "我的博客变迁和思考",
+    "sourcePath": "blog/blog-history.md",
+    "url": "/blog/blog-history.html"
+  },
+  {
     "title": "这个博客是怎么搭起来的",
     "sourcePath": "blog/how-this-blog-is-built.md",
     "url": "/blog/how-this-blog-is-built.html"

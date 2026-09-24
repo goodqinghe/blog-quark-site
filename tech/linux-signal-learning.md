@@ -11,10 +11,8 @@ updated: 2026-09-23
 以下是 [baeldung](https://www.baeldung.com/linux/) 的 [SIGINT And Other Termination Signals in Linux](https://www.baeldung.com/linux/sigint-and-other-termination-signals) 文章中关于信号的介绍：
 
 > The [signals](https://man7.org/linux/man-pages/man7/signal.7.html) are a method of communication between processes. When a process receives a signal, the process interrupts its execution and a signal handler is executed.
->
-> 以下是非官方翻译：
->
-> 信号是进程间通信的一种方式。当进程接收到信号时，进程会中断其执行，并执行信号处理程序。
+
+信号是进程间通信的一种方式。当进程接收到信号时，进程会中断其执行，并执行信号处理程序。
 
 ## 参考资料
 
