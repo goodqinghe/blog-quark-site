@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>这个博客是怎么搭起来的 · 清河的博客</title>
-  <link rel="stylesheet" href="../_site/style.33458bdb00ef.css">
+  <link rel="stylesheet" href="../_site/style.b748025c7926.css">
 </head>
 <body>
   <header class="site-header">
@@ -42,7 +42,7 @@ dist/blog/how-this-blog-is-built.html
 <span class="line"><span style="color:#85E89D">updated</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">2026-10-02</span></span>
 <span class="line"><span style="color:#B392F0">---</span></span>
 <span class="line"></span></code></pre>
-<p>这里不是完整的 YAML 解析器：代码逐行读取简单的 <code>键: 值</code>，并去掉值两边的引号。标题优先取 <code>title</code>，其次取正文的第一个 H1，最后才用文件名。<code>updated</code> 用于首页“最近更新”的排序。</p>
+<p>这里不是完整的 YAML 解析器：代码逐行读取简单的 <code>键: 值</code>，并去掉值两边的引号。标题优先取 <code>title</code>，其次取正文的第一个 H1，最后才用文件名。<code>updated</code> 用于首页文章列表的排序和“更新于”标注，没有日期的文章排在最后。</p>
 <p>构建器没有根据 <code>draft: true</code> 跳过文章。放进 <code>content/</code> 的 Markdown 都会参与构建，包括没有进入首页推荐列表的文件。待审稿应留在正式输入目录之外，不能靠一个 Frontmatter 标记控制发布。</p>
 <h2>正文怎样变成 HTML</h2>
 <p>渲染器在 <code>scripts/markdown.mjs</code>，由 <code>markdown-it</code> 处理正文。生成链接时，代码会把以 <code>.md</code> 结尾的地址换成 <code>.html</code>，查询参数和片段标识可以保留。例如：</p>
@@ -59,7 +59,7 @@ dist/blog/how-this-blog-is-built.html
 <h2>导航和页面外壳从哪里来</h2>
 <p><code>site.config.json</code> 的 <code>navigation</code> 配置分类名、说明和文章顺序。<code>sectionDefinitions()</code> 把收集到的页面分到分类中，按配置排序；没有配置顺序的文章再按标题排序。</p>
 <p>文章页由 <code>pageHtml()</code> 包上外壳，包括顶部入口、内容导航、面包屑和正文。桌面显示左侧竖栏，窄屏把同一份分类导航放进正文上方的折叠区；当前分类和当前文章仍有标识。这个切换主要由 CSS 和原生 <code>&lt;details&gt;</code> 完成。</p>
-<p>首页使用 <code>homeHtml()</code> 单独生成，保留简介、“开始这里”、分类入口和“最近更新”，不放文章页的左侧竖栏。两种页面共用顶部入口、字体和颜色；首页负责选择入口，文章页负责阅读和切换同类文章。</p>
+<p>首页使用 <code>homeHtml()</code> 单独生成，保留一句简介和一份文章列表，每篇文章只出现一次；关于、近况和联系入口由 <code>home.links</code> 放进顶部导航，<code>home.excludeSections</code> 将个人信息页排除出文章列表。两种页面共用顶部样式、字体和颜色；首页负责选择入口，文章页负责阅读和切换同类文章，保留分类导航和左侧竖栏。</p>
 <p>样式也在 <code>build.mjs</code> 中生成。CSS 内容的 SHA-256 前 12 位进入文件名，页面引用类似 <code>_site/style.&lt;hash&gt;.css</code> 的地址；样式变化后，会生成新的文件名。<code>site-map.json</code> 则只记录标题、原稿路径和页面地址，不包含正文，也不是全文搜索索引。</p>
 <h2>本地如何检查</h2>
 <p>在源码仓库根目录安装依赖并构建：</p>

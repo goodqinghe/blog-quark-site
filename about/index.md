@@ -20,7 +20,6 @@ updated: 2026-08-28
 这个博客主要是一个记录一些相关的知识和思考的博客。
 
 - [博客如何设计的](../blog/how-this-blog-is-built.md)
-- [博客历史](../blog/blog-history.md)
 
 ## 联系方式
 
