@@ -1,0 +1,25 @@
+# Only for the OLD blog project, after separate approval; never put this in the homepage project.
+# Temporary 302 during the reversible migration. Not installed by this build.
+/ https://www.zqh.me/blog/ 302
+/index.html https://www.zqh.me/blog/ 302
+/index https://www.zqh.me/blog/ 302
+/blog/how-this-blog-is-built.html https://www.zqh.me/blog/how-this-blog-is-built 302
+/blog/how-this-blog-is-built https://www.zqh.me/blog/how-this-blog-is-built 302
+/blog/how-this-blog-is-built.md https://www.zqh.me/blog/how-this-blog-is-built 302
+/tech/linux-signal-learning.html https://www.zqh.me/blog/tech/linux-signal-learning 302
+/tech/linux-signal-learning https://www.zqh.me/blog/tech/linux-signal-learning 302
+/tech/linux-signal-learning.md https://www.zqh.me/blog/tech/linux-signal-learning 302
+/about/index.html https://www.zqh.me/about/ 302
+/about/index https://www.zqh.me/about/ 302
+/about/index.md https://www.zqh.me/about/ 302
+/about/ https://www.zqh.me/about/ 302
+/about https://www.zqh.me/about/ 302
+/about/now.html https://www.zqh.me/now/ 302
+/about/now https://www.zqh.me/now/ 302
+/about/now.md https://www.zqh.me/now/ 302
+/about/contact.html https://www.zqh.me/contact/ 302
+/about/contact https://www.zqh.me/contact/ 302
+/about/contact.md https://www.zqh.me/contact/ 302
+/_site/style.*.css https://www.zqh.me/blog/_site/style.css 302
+/blog/* https://www.zqh.me/blog/:splat 302
+/* https://www.zqh.me/blog/:splat 302
